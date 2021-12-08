@@ -1,19 +1,18 @@
 import os
-from typing import Dict
 
 def aggregateNums(lines: list):
-    fullLine: dict = {}
+    fullLine: list = []
     if(lines is not None):
         for lineNumber, line in enumerate(lines):
             maxRequired: int = len(line)//2
             for i in range(0, len(line), 1):
                 if(lineNumber == 0):
-                    fullLine[i] = [0, 0]
+                    fullLine.append([0, 0])
                 if(int(line[i]) == 0):
-                    fullLine.get(i)[0] += 1
+                    fullLine[i][0] += 1
                 else:
-                    fullLine.get(i)[1] += 1
-        gamma = ''.join(['0' if zero > one else '1' for zero, one in fullLine.values()])
+                    fullLine[i][1] += 1
+        gamma = ''.join(['0' if zero > one else '1' for zero, one in fullLine])
         epsilon = ''.join(['1' if c == '0' else '0' for c in gamma])
         
         return int(gamma, 2) * int(epsilon, 2)
@@ -31,10 +30,9 @@ def parse_input_file(filename: str):
 
 def main():
     parsed_input = parse_input_file("input.txt")
-    print(aggregateNums(parsed_input))
 
-    gamma: str = aggregateNums(parsed_input)
-    # print(f"Part 1: {result_1}")
+    result_1 = aggregateNums(parsed_input)
+    print(f"Part 1: {result_1}")
 
     # result_2 = find_sliding_window_increases(parsed_input)
     # print(f"Part 2: {result_2}")
